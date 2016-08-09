@@ -6,13 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.pck.base.tictactoe.Game;
 import com.pck.base.webmain.common.ApplicationContext;
 import com.pck.base.webmain.common.RegisterUser;
 import com.pck.base.webmain.common.User;
@@ -27,7 +27,7 @@ public class BaseController {
 	private UserService userService;
 
 	@RequestMapping(value = "/status")
-	public @ResponseBody String getStatus(ModelMap model) {
+	public @ResponseBody String getStatus() {
 		logger.debug("BaseController.getStatus: 1.0");
 
 		Gson gson = new Gson();
@@ -67,6 +67,18 @@ public class BaseController {
 
 		Gson gson = new Gson();
 		String response = gson.toJson(users);
+		return response;
+	}
+
+	@RequestMapping(value = "/test")
+	public @ResponseBody String testBoard() {
+		Game aGame = new Game();
+
+		//TestResponse tr = new TestResponse();
+		//tr.setResults(aGame.boardToJson());
+
+		Gson gson = new Gson();
+		String response = gson.toJson(aGame.boardToJson());
 		return response;
 	}
 
