@@ -15,6 +15,11 @@
 		additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
+	
+	<logger name="com.pck.test4" level="debug"
+		additivity="false">
+		<appender-ref ref="STDOUT" />
+	</logger>
 
 	<root level="error">
 		<appender-ref ref="STDOUT" />
