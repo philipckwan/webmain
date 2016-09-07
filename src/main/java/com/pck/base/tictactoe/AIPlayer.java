@@ -3,6 +3,7 @@ package com.pck.base.tictactoe;
 import java.util.Random;
 
 import com.pck.base.tictactoe.Game.BoxStatus;
+import com.pck.base.tictactoe.Game.GameStatus;
 
 public class AIPlayer {
 
@@ -15,7 +16,12 @@ public class AIPlayer {
 		Random rand = new Random();
 
 		System.out.println("---" + gameBoard.boardToString());
-
+		if (gameBoard.getStatus() == GameStatus.Game_finished_draw ||
+			gameBoard.getStatus() == GameStatus.Game_finished_player1_win ||
+			gameBoard.getStatus() == GameStatus.Game_finished_player2_win) {
+			return 0;
+		}
+		
 		while (nextMove == 0) {
 			System.out.println("2.0; nextMove:" + nextMove + ";");
 			int position = rand.nextInt(9) + 1;

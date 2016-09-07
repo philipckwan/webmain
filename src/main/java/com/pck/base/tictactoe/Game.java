@@ -9,7 +9,7 @@ public class Game {
 	public static final String O = "O";
 
 	public enum GameStatus {
-		Initializing, Waiting_for_game, Game_in_progress_pending_player1_move, Game_in_progress_pending_player2_move, Game_finished_player1_win, Game_finished_player2_win
+		Initializing, Waiting_for_game, Game_in_progress_pending_player1_move, Game_in_progress_pending_player2_move, Game_finished_player1_win, Game_finished_player2_win, Game_finished_draw
 	}
 
 	public enum BoxStatus {
@@ -178,6 +178,24 @@ public class Game {
 		if (board[2][2] == board[1][1] && board[1][1] == board[0][0] && board[2][2] != BoxStatus.Empty) {
 			status = (board[2][2] == BoxStatus.Player1) ? GameStatus.Game_finished_player1_win
 					: GameStatus.Game_finished_player2_win;
+		}
+		
+		// Check if all boxes are filled, but no player has won
+		// then the game is draw
+		boolean hasEmpty = false;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (board[i][j] == BoxStatus.Empty) {
+					hasEmpty = true;
+					break;
+				}
+			}
+			if (hasEmpty) {
+				break;
+			}
+		}
+		if (!hasEmpty && status != GameStatus.Game_finished_player1_win && status != GameStatus.Game_finished_player2_win) {
+			status = GameStatus.Game_finished_draw;
 		}
 
 		return true;

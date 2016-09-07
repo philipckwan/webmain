@@ -2,8 +2,8 @@
 Issues, TODOs
 -----------------------------------
 
--add game status to detect when draw (all 9 boxes are filled and there is no winner)
--the AIPlayer will hang (infinite loop) when the game is draw
+DONE-add game status to detect when draw (all 9 boxes are filled and there is no winner)
+FIXED -the AIPlayer will hang (infinite loop) when the game is draw
 
 -consider enhance the Game class to provide more information on the board status
 
