@@ -27,7 +27,7 @@ public class Game {
 		}
 	}
 
-	BoxStatus[][] board = new BoxStatus[][] { { BoxStatus.Empty, BoxStatus.Empty, BoxStatus.Empty },
+	public BoxStatus[][] board = new BoxStatus[][] { { BoxStatus.Empty, BoxStatus.Empty, BoxStatus.Empty },
 			{ BoxStatus.Empty, BoxStatus.Empty, BoxStatus.Empty },
 			{ BoxStatus.Empty, BoxStatus.Empty, BoxStatus.Empty } };
 
@@ -204,6 +204,9 @@ public class Game {
 		boardJson.lines[2] = "     | " + board[2][0] + " " + board[2][1] + " " + board[2][2] + " |";
 		boardJson.lines[1] = "     | " + board[1][0] + " " + board[1][1] + " " + board[1][2] + " |";
 		boardJson.lines[0] = "     | " + board[0][0] + " " + board[0][1] + " " + board[0][2] + " |";
+		boardJson.status[2] = "game status: " + getStatus() + ";";
+		boardJson.status[1] = "player1: " + player1.getUserID() + ";";
+		boardJson.status[0] = "player2: " + player2.getUserID() + ";";
 		return boardJson;
 	}
 
@@ -243,6 +246,7 @@ public class Game {
 
 	class BoardJson {
 		private String lines[] = new String[3];
+		private String status[] = new String[3];
 	}
 
 }

@@ -13,6 +13,7 @@ public class Test4Environment {
 	private int environmentTime = 0;
 	private int environmentTimeIncrement = 0;
 	private Map<Integer, List<EnvironmentEvent>> environmentQueue = new HashMap<Integer, List<EnvironmentEvent>>();
+	private List<EnvironmentEvent> lastEvents = null;
 
 	private static Test4Environment instance = new Test4Environment();
 
@@ -57,6 +58,7 @@ public class Test4Environment {
 			if (eventsAtThisTime != null && !eventsAtThisTime.isEmpty()) {
 				//System.out.println("Test4Environment.advanceEnvironmentTime: Event(s) fired at envTime: [" + time
 				//		+ "], START -------");
+				lastEvents = eventsAtThisTime;
 				for (EnvironmentEvent anEvent : eventsAtThisTime) {
 					logger.debug(
 							"---time:" + anEvent.getEventTime() + "; event:" + anEvent.getEventDescription() + ";");
@@ -71,6 +73,19 @@ public class Test4Environment {
 		//System.out.println("%%% Time is at:" + newEnvTime + ";");
 
 		return newEnvTime;
+	}
+
+	public String lastEventsToString() {
+		String results = "";
+		if (lastEvents != null) {
+			int count = 0;
+			for (EnvironmentEvent anEvent : lastEvents) {
+				count++;
+				results += "Event [" + count + "]; time:" + anEvent.getEventTime() + "; event: "
+						+ anEvent.getEventDescription() + ";\n";
+			}
+		}
+		return results;
 	}
 
 	public void addEvent(int eventEnvTime, String description) {

@@ -112,5 +112,12 @@
 	</dependencies>
 	<build>
 		<finalName>webmain</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.26</version>
+			</plugin>
+		</plugins>
 	</build>
 </project>

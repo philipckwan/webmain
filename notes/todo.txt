@@ -1,0 +1,24 @@
+-----------------------------------
+Issues, TODOs
+-----------------------------------
+
+-add game status to detect when draw (all 9 boxes are filled and there is no winner)
+-the AIPlayer will hang (infinite loop) when the game is draw
+
+-consider enhance the Game class to provide more information on the board status
+
+-the board is inverted when print to json in Postman, see whether this is a problem
+
+-i can only run debugging (able to see source code with breakpoint navigation) only when I use jetty plugin to run
+ -fails (cannot find source) when using tomcat plugin to run
+ -is it because I didn't include the tomcat plugin in the pom.xml?
+ 
+-come up with a better AI Player
+
+-utilize the Test4 heatbeat and scheduler to make something
+ -might need to enhance the interfaces a bit in the Test4 component, so as to easily add events and initialize
+ -might need to refactor this package (rename from Test4 to something else)
+
+-----------------------------------
+DONE
+-----------------------------------

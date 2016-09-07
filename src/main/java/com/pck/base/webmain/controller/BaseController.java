@@ -2,26 +2,43 @@ package com.pck.base.webmain.controller;
 
 import java.util.List;
 
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.pck.base.tictactoe.AIPlayer;
 import com.pck.base.tictactoe.Game;
 import com.pck.base.webmain.common.ApplicationContext;
 import com.pck.base.webmain.common.RegisterUser;
 import com.pck.base.webmain.common.User;
 import com.pck.base.webmain.service.UserService;
+import com.pck.test4.HeartBeat;
+import com.pck.test4.Test4Environment;
 
 @Controller
 public class BaseController {
 
 	private final static Logger logger = LoggerFactory.getLogger(BaseController.class);
+
+	private static Game aGame = null;
+	private static User player1 = null;
+	private static User player2 = null;
 
 	@Autowired
 	private UserService userService;
@@ -70,16 +87,97 @@ public class BaseController {
 		return response;
 	}
 
-	@RequestMapping(value = "/test")
-	public @ResponseBody String testBoard() {
-		Game aGame = new Game();
+	@RequestMapping(value = "/startGame")
+	public @ResponseBody String startGame() {
+		aGame = new Game();
 
-		//TestResponse tr = new TestResponse();
-		//tr.setResults(aGame.boardToJson());
+		player1 = new User();
+		player1.setUserID("You");
+
+		player2 = new User();
+		player2.setUserID("NPC");
+
+		aGame.setPlayer(player1);
+		aGame.setPlayer(player2);
 
 		Gson gson = new Gson();
 		String response = gson.toJson(aGame.boardToJson());
 		return response;
+	}
+
+	@RequestMapping(value = "/checkGame", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String checkGame() {
+
+		Gson gson = new Gson();
+		String response = gson.toJson(aGame.boardToJson());
+		return response;
+
+	}
+
+	@RequestMapping(value = "/move/{position}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String makeAMove(@PathVariable String position) {
+		int positionInt = Integer.parseInt(position);
+		aGame.makeAMove(player1, positionInt);
+
+		int npcMove = AIPlayer.getANextMove(aGame);
+		aGame.makeAMove(player2, npcMove);
+
+		Gson gson = new Gson();
+		String response = gson.toJson(aGame.boardToJson());
+		return response;
+	}
+
+	@RequestMapping(value = "/startEnv")
+	public @ResponseBody String startEnvironment() {
+		Test4Environment t4Env = Test4Environment.getInstance();
+		t4Env.setEnvironmentTimeIncrement(1);
+		t4Env.addEvent(9, "At 9b");
+		t4Env.addEvent(4, "At 4");
+		t4Env.addEvent(7, "At 7");
+		t4Env.addEvent(14, "At 14");
+		t4Env.addEvent(22, "At 22a");
+		t4Env.addEvent(22, "At 22b");
+		t4Env.addEvent(21, "At 21");
+		t4Env.addEvent(23, "At 23");
+		t4Env.addEvent(9, "At 9a");
+		t4Env.addEvent(16, "At 16");
+
+		t4Env.addEvent(22, "At 22 ddd");
+		t4Env.addEvent(21, "At 21 ccc");
+		t4Env.addEvent(11, "At 11");
+
+		JobDetail job = JobBuilder.newJob(HeartBeat.class).withIdentity("heartBeat").build();
+
+		Trigger trigger = TriggerBuilder.newTrigger()
+				.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(2).repeatForever()).build();
+
+		/*
+		CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity("cronTrigger", "cronTriggerGroup1")
+				.withSchedule(CronScheduleBuilder.cronSchedule("* * * * * ?")).build();
+		*/
+
+		try {
+			Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+
+			scheduler.start();
+
+			scheduler.scheduleJob(job, trigger);
+
+			//scheduler.shutdown();
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String results = "Test4 scheduled successfully";
+		return results;
+	}
+
+	@RequestMapping(value = "/checkEnv")
+	public @ResponseBody String checkEnvironment() {
+		Test4Environment t4Env = Test4Environment.getInstance();
+		String lastEventsStr = t4Env.lastEventsToString();
+		return lastEventsStr;
 	}
 
 }
