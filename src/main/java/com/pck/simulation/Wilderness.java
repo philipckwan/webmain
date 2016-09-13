@@ -1,5 +1,6 @@
 package com.pck.simulation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.pck.simulation.actor.Actor;
@@ -15,7 +16,7 @@ public class Wilderness {
 	private int ySpan;
 	private int day = 0;
 
-	private List<Actor> occupants;
+	private List<Actor> occupants = new ArrayList<Actor>();
 
 	private Actor[][] plain;
 
@@ -36,6 +37,7 @@ public class Wilderness {
 		}
 
 		plain[xPos][yPos] = actor;
+		occupants.add(actor);
 
 		return true;
 	}
@@ -49,15 +51,19 @@ public class Wilderness {
 				if (anActor != null) {
 					toPrint = anActor.getInitial();
 				}
+				if ((x == 0 || y == 0 || x == xSpan - 1 || y == ySpan - 1) && toPrint.equals(" ")) {
+					toPrint = ".";
+				}
 				System.out.print(toPrint);
 			}
 			System.out.println();
 		}
-		System.out.println("----------");
+
+		System.out.println("------total [" + occupants.size() + "] occupants-----");
 	}
 
 	public static void main(String[] args) {
-		Wilderness wild = new Wilderness(10, 5);
+		Wilderness wild = new Wilderness(40, 10);
 
 		wild.putActor(new Grass(), 0, 0);
 		wild.putActor(new Deer(), 9, 4);
