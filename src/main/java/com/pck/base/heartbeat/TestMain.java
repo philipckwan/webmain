@@ -1,4 +1,4 @@
-package com.pck.test4;
+package com.pck.base.heartbeat;
 
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -11,17 +11,17 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Test4Main {
+public class TestMain {
 
 	private static final int realTimeSecondsPerHeartBeat = 1;
 	private static final int environmentTimeSecondsPerHeartBeat = 1;
 
-	private final static Logger logger = LoggerFactory.getLogger(Test4Main.class);
+	private final static Logger logger = LoggerFactory.getLogger(TestMain.class);
 
 	public static void main(String[] args) {
 		logger.debug("Test4Main.main: 1.0");
 
-		Test4Environment t4Env = Test4Environment.getInstance();
+		HeartBeatEnvironment t4Env = HeartBeatEnvironment.getInstance();
 		t4Env.setEnvironmentTimeIncrement(environmentTimeSecondsPerHeartBeat);
 		t4Env.addEvent(9, "At 9b");
 		t4Env.addEvent(4, "At 4");

@@ -1,4 +1,4 @@
-package com.pck.test4;
+package com.pck.base.heartbeat;
 
 public class EnvironmentEvent {
 

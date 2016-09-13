@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.pck.base.heartbeat.HeartBeat;
+import com.pck.base.heartbeat.HeartBeatEnvironment;
 import com.pck.base.tictactoe.AIPlayer;
 import com.pck.base.tictactoe.Game;
 import com.pck.base.webmain.common.ApplicationContext;
 import com.pck.base.webmain.common.RegisterUser;
 import com.pck.base.webmain.common.User;
 import com.pck.base.webmain.service.UserService;
-import com.pck.test4.HeartBeat;
-import com.pck.test4.Test4Environment;
 
 @Controller
 public class BaseController {
@@ -95,7 +95,7 @@ public class BaseController {
 		player1.setUserID("You");
 
 		player2 = new User();
-		player2.setUserID("NPC");
+		player2.setUserID("Computer");
 
 		aGame.setPlayer(player1);
 		aGame.setPlayer(player2);
@@ -129,7 +129,7 @@ public class BaseController {
 
 	@RequestMapping(value = "/startEnv")
 	public @ResponseBody String startEnvironment() {
-		Test4Environment t4Env = Test4Environment.getInstance();
+		HeartBeatEnvironment t4Env = HeartBeatEnvironment.getInstance();
 		t4Env.setEnvironmentTimeIncrement(1);
 		t4Env.addEvent(9, "At 9b");
 		t4Env.addEvent(4, "At 4");
@@ -175,7 +175,7 @@ public class BaseController {
 
 	@RequestMapping(value = "/checkEnv")
 	public @ResponseBody String checkEnvironment() {
-		Test4Environment t4Env = Test4Environment.getInstance();
+		HeartBeatEnvironment t4Env = HeartBeatEnvironment.getInstance();
 		String lastEventsStr = t4Env.lastEventsToString();
 		return lastEventsStr;
 	}

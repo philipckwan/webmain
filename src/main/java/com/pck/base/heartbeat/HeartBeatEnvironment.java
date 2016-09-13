@@ -1,4 +1,4 @@
-package com.pck.test4;
+package com.pck.base.heartbeat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,21 +8,21 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Test4Environment {
-	private final static Logger logger = LoggerFactory.getLogger(Test4Environment.class);
+public class HeartBeatEnvironment {
+	private final static Logger logger = LoggerFactory.getLogger(HeartBeatEnvironment.class);
 	private int environmentTime = 0;
 	private int environmentTimeIncrement = 0;
 	private Map<Integer, List<EnvironmentEvent>> environmentQueue = new HashMap<Integer, List<EnvironmentEvent>>();
 	private List<EnvironmentEvent> lastEvents = null;
 
-	private static Test4Environment instance = new Test4Environment();
+	private static HeartBeatEnvironment instance = new HeartBeatEnvironment();
 
 	// This class is a singleton
-	private Test4Environment() {
+	private HeartBeatEnvironment() {
 		logger.debug("Test4Environment.Test4Environment();");
 	}
 
-	public static Test4Environment getInstance() {
+	public static HeartBeatEnvironment getInstance() {
 		return instance;
 	}
 

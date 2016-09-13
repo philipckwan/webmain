@@ -1,4 +1,4 @@
-package com.pck.test4;
+package com.pck.base.heartbeat;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -18,7 +18,7 @@ public class HeartBeat implements Job {
 		long currentTimeInSeconds = System.currentTimeMillis() / 1000;
 		long timeSinceStartInSeconds = currentTimeInSeconds - startTimeInSeconds;
 
-		Test4Environment t4Env = Test4Environment.getInstance();
+		HeartBeatEnvironment t4Env = HeartBeatEnvironment.getInstance();
 		int environmentTime = t4Env.advanceEnvironmentTime();
 
 		logger.debug("HeartBeat.execute: A heartbeat with count[" + count++ + "]; real time:[" + timeSinceStartInSeconds
