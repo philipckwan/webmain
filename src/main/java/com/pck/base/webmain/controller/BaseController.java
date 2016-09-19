@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.pck.base.heartbeat.HeartBeat;
 import com.pck.base.heartbeat.HeartBeatEnvironment;
-import com.pck.base.tictactoe.AIPlayer;
-import com.pck.base.tictactoe.Game;
 import com.pck.base.webmain.common.ApplicationContext;
 import com.pck.base.webmain.common.RegisterUser;
 import com.pck.base.webmain.common.User;
 import com.pck.base.webmain.service.UserService;
+import com.pck.tictactoe.AIPlayer;
+import com.pck.tictactoe.Game;
 
 @Controller
 public class BaseController {

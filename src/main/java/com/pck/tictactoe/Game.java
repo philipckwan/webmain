@@ -1,4 +1,4 @@
-package com.pck.base.tictactoe;
+package com.pck.tictactoe;
 
 import com.pck.base.webmain.common.User;
 

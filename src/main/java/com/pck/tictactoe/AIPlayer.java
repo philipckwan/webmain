@@ -1,9 +1,9 @@
-package com.pck.base.tictactoe;
+package com.pck.tictactoe;
 
 import java.util.Random;
 
-import com.pck.base.tictactoe.Game.BoxStatus;
-import com.pck.base.tictactoe.Game.GameStatus;
+import com.pck.tictactoe.Game.BoxStatus;
+import com.pck.tictactoe.Game.GameStatus;
 
 public class AIPlayer {
 

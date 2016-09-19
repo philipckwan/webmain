@@ -1,6 +1,7 @@
 package com.pck.base.tictactoe;
 
 import com.pck.base.webmain.common.User;
+import com.pck.tictactoe.Game;
 
 import junit.framework.TestCase;
 
