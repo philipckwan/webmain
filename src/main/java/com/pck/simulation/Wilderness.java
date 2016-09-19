@@ -60,4 +60,29 @@ public class Wilderness {
 		System.out.println("------total [" + occupants.size() + "] occupants-----");
 	}
 
+	public String plainToString() {
+		String results = "";
+
+		results = "\n----------\n";
+
+		for (int y = ySpan - 1; y >= 0; y--) {
+			for (int x = 0; x < xSpan; x++) {
+				String toPrint = " ";
+				Actor anActor = plain[x][y];
+				if (anActor != null) {
+					toPrint = anActor.getInitial();
+				}
+				if ((x == 0 || y == 0 || x == xSpan - 1 || y == ySpan - 1) && toPrint.equals(" ")) {
+					toPrint = ".";
+				}
+				results += toPrint;
+			}
+			results += "\n";
+		}
+
+		results += "------total [" + occupants.size() + "] occupants-----\n";
+
+		return results;
+	}
+
 }
