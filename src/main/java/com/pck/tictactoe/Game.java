@@ -11,7 +11,7 @@ public class Game {
 	public enum BoxStatus {
 		Empty("-"), Player1("O"), Player2("X");
 
-		String display;
+		private final String display;
 
 		BoxStatus(String display) {
 			this.display = display;
@@ -20,7 +20,9 @@ public class Game {
 		@Override
 		public String toString() {
 			return this.display;
+
 		}
+
 	}
 
 	public BoxStatus[][] board = new BoxStatus[][] { { BoxStatus.Empty, BoxStatus.Empty, BoxStatus.Empty },
