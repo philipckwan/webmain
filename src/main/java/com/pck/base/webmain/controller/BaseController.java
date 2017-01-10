@@ -43,7 +43,7 @@ public class BaseController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/status")
+	@RequestMapping(value = "/status", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getStatus() {
 		logger.debug("BaseController.getStatus: 1.0");
 
@@ -52,7 +52,7 @@ public class BaseController {
 		return response;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String register(@RequestBody RegisterUser registerUser) {
 		logger.debug("BaseController.register: 1.0");
 
@@ -63,7 +63,7 @@ public class BaseController {
 		return response;
 	}
 
-	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	@RequestMapping(value = "/user", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getUserStatus(@RequestBody User request) {
 		logger.debug("BaseController.getUserStatus: 1.1");
 
@@ -75,7 +75,7 @@ public class BaseController {
 
 	}
 
-	@RequestMapping(value = "/users", method = RequestMethod.POST)
+	@RequestMapping(value = "/users", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getUsers(@RequestBody String secret) {
 		logger.debug("BaseController.getUsers: 1.1");
 		secret = secret.trim();
@@ -87,7 +87,7 @@ public class BaseController {
 		return response;
 	}
 
-	@RequestMapping(value = "/startGame")
+	@RequestMapping(value = "/startGame", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String startGame() {
 		aGame = new Game();
 
