@@ -19,8 +19,16 @@ You can use Chrome Postman to make the request and see the response
 
 -----------------------------------
 
-To view the webGL demo, use an internet browser and the base URL:
+To view the webGL demo, use an Internet browser and the base URL:
 http://localhost:8080/webmain/webgl/
 
 For example: 
 http://localhost:8080/webmain/webgl/a.html
+
+-----------------------------------
+
+To view the html5 canvas demo, use an Internet browser and the base URL:
+http://localhost:8080/webmain/html5/
+
+For example:
+http://localhost:8080/webmain/html5/chasing.html
