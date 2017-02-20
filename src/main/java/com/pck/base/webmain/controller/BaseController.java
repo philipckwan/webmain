@@ -1,6 +1,7 @@
 package com.pck.base.webmain.controller;
 
 import java.util.List;
+import java.util.function.BiFunction;
 
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -178,6 +179,14 @@ public class BaseController {
 		HeartBeatEnvironment t4Env = HeartBeatEnvironment.getInstance();
 		String lastEventsStr = t4Env.lastEventsToString();
 		return lastEventsStr;
+	}
+
+	@RequestMapping(value = "/testLambda/{str1}/{str2}")
+	public @ResponseBody String testLambda(@PathVariable String str1, @PathVariable String str2) {
+		logger.debug("BaseController.testLambda: 1.0");
+		BiFunction<String, String, String> stringAdderWithExclamation = (String s1, String s2) -> s1 + s2 + "!";
+		//IAddable<String> stringAdder = (String s1, String s2) -> s1 + s2;
+		return stringAdderWithExclamation.apply(str1, str2);
 	}
 
 }
