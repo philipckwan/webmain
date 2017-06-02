@@ -1,0 +1,24 @@
+A board should look like this:
+xxxxxxxxxxxxxxxx
+xxxS      xxxxxx
+xxx       xxxxxx
+xxx       xxxxxx
+xxxxxxxDxxxxxxxx
+x   xx        xx
+x    D        xx
+x   xx        xx
+x   xxxxxxxxxxxx
+x   xxxxxxxxxxxx
+xE  xxxxxxxxxxxx
+xxxxxxxxxxxxxxxx
+
+Above is an example of a board of size 16(column/x) x 12(row/y) 
+x - a block/wall, it is impassable, player cannot step into it
+(empty space) - a space, player can step into it
+S - starting point, each board contains 1 and only 1 S, player starts in this space and can step into it
+D - door, connects one area/room to another, player can step into it, then step out to the other area. If player wants to go back, he has to step out to the new area, then step back into the door space
+E - exit point, each board contains 1 and only 1 E, player can step into it. Usually the game would finish when the player step into it.
+
+Some notes:
+-All 4 sides of the board should be surrounded by 'x', so that a player can never move out of bound without hitting an 'x'.
+-A board should always be of rectangular shape, e.g. 16 x 12
