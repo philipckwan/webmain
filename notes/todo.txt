@@ -2,6 +2,9 @@
 Issues, TODOs
 -----------------------------------
 
+-potds.jsp does not work
+ access by http://localhost:8080/webmain/potds.jsp
+ 
 DONE-add game status to detect when draw (all 9 boxes are filled and there is no winner)
 FIXED -the AIPlayer will hang (infinite loop) when the game is draw
 
