@@ -1,5 +1,6 @@
 package com.pck.tictactoe;
 
+import com.pck.base.webmain.common.APIResponse;
 import com.pck.base.webmain.common.User;
 
 public class Game {
@@ -48,11 +49,20 @@ public class Game {
 
 		return results;
 	}
-
+	
 	public boolean makeAMove(User aPlayer, int position) {
+		return this.makeAMove(aPlayer, position, null);
+	}
+
+	public boolean makeAMove(User aPlayer, int position, APIResponse apiResponse) {
+		
+		if (apiResponse == null) {
+			apiResponse = APIResponse.newInstance();
+		}
 
 		BoxStatus updateBoxStatus = null;
 		GameStatus updateGameStatus = null;
+		final String ERROR_INVALID_MOVE = "You have made an invalid move";
 
 		if (aPlayer.getUserID().equals(player1.getUserID())
 				&& status == GameStatus.Game_in_progress_pending_player1_move) {
@@ -69,6 +79,7 @@ public class Game {
 		switch (position) {
 		case 1:
 			if (board[2][0] != BoxStatus.Empty) {
+				apiResponse.addError(ERROR_INVALID_MOVE);
 				return false;
 			} else {
 				board[2][0] = updateBoxStatus;
@@ -76,6 +87,7 @@ public class Game {
 			}
 		case 2:
 			if (board[2][1] != BoxStatus.Empty) {
+				apiResponse.addError(ERROR_INVALID_MOVE);
 				return false;
 			} else {
 				board[2][1] = updateBoxStatus;
@@ -83,6 +95,7 @@ public class Game {
 			}
 		case 3:
 			if (board[2][2] != BoxStatus.Empty) {
+				apiResponse.addError(ERROR_INVALID_MOVE);
 				return false;
 			} else {
 				board[2][2] = updateBoxStatus;
@@ -90,6 +103,7 @@ public class Game {
 			}
 		case 4:
 			if (board[1][0] != BoxStatus.Empty) {
+				apiResponse.addError(ERROR_INVALID_MOVE);
 				return false;
 			} else {
 				board[1][0] = updateBoxStatus;
@@ -97,6 +111,7 @@ public class Game {
 			}
 		case 5:
 			if (board[1][1] != BoxStatus.Empty) {
+				apiResponse.addError(ERROR_INVALID_MOVE);
 				return false;
 			} else {
 				board[1][1] = updateBoxStatus;
@@ -104,6 +119,7 @@ public class Game {
 			}
 		case 6:
 			if (board[1][2] != BoxStatus.Empty) {
+				apiResponse.addError(ERROR_INVALID_MOVE);
 				return false;
 			} else {
 				board[1][2] = updateBoxStatus;
@@ -111,6 +127,7 @@ public class Game {
 			}
 		case 7:
 			if (board[0][0] != BoxStatus.Empty) {
+				apiResponse.addError(ERROR_INVALID_MOVE);
 				return false;
 			} else {
 				board[0][0] = updateBoxStatus;
@@ -118,6 +135,7 @@ public class Game {
 			}
 		case 8:
 			if (board[0][1] != BoxStatus.Empty) {
+				apiResponse.addError(ERROR_INVALID_MOVE);
 				return false;
 			} else {
 				board[0][1] = updateBoxStatus;
@@ -125,6 +143,7 @@ public class Game {
 			}
 		case 9:
 			if (board[0][2] != BoxStatus.Empty) {
+				apiResponse.addError(ERROR_INVALID_MOVE);
 				return false;
 			} else {
 				board[0][2] = updateBoxStatus;

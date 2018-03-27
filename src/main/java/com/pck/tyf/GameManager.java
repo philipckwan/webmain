@@ -22,7 +22,7 @@ public enum GameManager {
 	GameManager() {
 		status = new HashMap<String, String>();
 		status.put("name", "TYF");
-		status.put("version", "0.1");
+		status.put("version", "0.2");
 		status.put("status", "ready");
 
 		games = new HashMap<String, Game>();

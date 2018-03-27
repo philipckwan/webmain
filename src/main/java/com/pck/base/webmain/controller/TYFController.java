@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
+import com.pck.base.webmain.common.APIResponse;
+import com.pck.base.webmain.common.Util;
 import com.pck.tyf.Game;
 import com.pck.tyf.GameManager;
 
@@ -28,9 +29,7 @@ public class TYFController {
 
 		GameManager gm = GameManager.getInstance();
 
-		Gson gson = new Gson();
-		String response = gson.toJson(gm.getStatus());
-		return response;
+		return Util.toGson(gm.getStatus());
 	}
 
 	@RequestMapping(value = "/game", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,9 +41,8 @@ public class TYFController {
 
 		Map<String, String> responseMap = new HashMap<String, String>();
 		responseMap.put("gameId", gameId);
-		Gson gson = new Gson();
-		String response = gson.toJson(responseMap);
-		return response;
+		
+		return Util.toGson(responseMap);
 	}
 
 	@RequestMapping(value = "/game/{gameId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,10 +50,13 @@ public class TYFController {
 		GameManager gm = GameManager.getInstance();
 		Game game = gm.getGame(gameId);
 
+		if (game == null) {
+			return Util.toGson(APIResponse.newError("Game not found"));
+		}
+		
 		String[] gameBoard = game.getGameBoardArray();
-		Gson gson = new Gson();
-		String response = gson.toJson(gameBoard);
-		return response;
+		
+		return Util.toGson(gameBoard);
 
 	}
 
@@ -71,9 +72,8 @@ public class TYFController {
 		gameStatus.put("gameBoard", gameBoard);
 		gameStatus.put("status", "running");
 		//gameStatus.add("status: running");
-		Gson gson = new Gson();
-		String response = gson.toJson(gameStatus);
-		return response;
+		
+		return Util.toGson(gameStatus);
 	}
 
 }

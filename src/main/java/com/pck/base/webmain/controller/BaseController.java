@@ -22,12 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
 import com.pck.base.heartbeat.HeartBeat;
 import com.pck.base.heartbeat.HeartBeatEnvironment;
+import com.pck.base.webmain.common.APIResponse;
 import com.pck.base.webmain.common.ApplicationContext;
 import com.pck.base.webmain.common.RegisterUser;
 import com.pck.base.webmain.common.User;
+import com.pck.base.webmain.common.Util;
 import com.pck.base.webmain.service.UserService;
 import com.pck.tictactoe.AIPlayer;
 import com.pck.tictactoe.Game;
@@ -48,9 +49,7 @@ public class BaseController {
 	public @ResponseBody String getStatus() {
 		logger.debug("BaseController.getStatus: 1.0");
 
-		Gson gson = new Gson();
-		String response = gson.toJson(new ApplicationContext());
-		return response;
+		return Util.toGson(new ApplicationContext());
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,9 +58,7 @@ public class BaseController {
 
 		User user = userService.registerUser(registerUser);
 
-		Gson gson = new Gson();
-		String response = gson.toJson(user);
-		return response;
+		return Util.toGson(user);
 	}
 
 	@RequestMapping(value = "/user", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,10 +67,7 @@ public class BaseController {
 
 		User user = userService.getUser(request);
 
-		Gson gson = new Gson();
-		String response = gson.toJson(user);
-		return response;
-
+		return Util.toGson(user);
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -83,9 +77,7 @@ public class BaseController {
 		logger.debug("__secret:" + secret + ";");
 		List<User> users = userService.getUsers(secret);
 
-		Gson gson = new Gson();
-		String response = gson.toJson(users);
-		return response;
+		return Util.toGson(users);
 	}
 
 	@RequestMapping(value = "/startGame", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -101,31 +93,31 @@ public class BaseController {
 		aGame.setPlayer(player1);
 		aGame.setPlayer(player2);
 
-		Gson gson = new Gson();
-		String response = gson.toJson(aGame.boardToJson());
-		return response;
+		return Util.toGson(aGame.boardToJson());
 	}
 
 	@RequestMapping(value = "/checkGame", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String checkGame() {
 
-		Gson gson = new Gson();
-		String response = gson.toJson(aGame.boardToJson());
-		return response;
+		return Util.toGson(aGame.boardToJson());
 
 	}
 
 	@RequestMapping(value = "/move/{position}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String makeAMove(@PathVariable String position) {
 		int positionInt = Integer.parseInt(position);
-		aGame.makeAMove(player1, positionInt);
+		
+		if (aGame == null) {
+			return Util.toGson(APIResponse.newError("Game is not initialized yet"));
+		}
+		
+		APIResponse response = APIResponse.newInstance();
+		aGame.makeAMove(player1, positionInt, response);
 
 		int npcMove = AIPlayer.getANextMove(aGame);
 		aGame.makeAMove(player2, npcMove);
 
-		Gson gson = new Gson();
-		String response = gson.toJson(aGame.boardToJson());
-		return response;
+		return Util.toGson(aGame.boardToJson(), response);
 	}
 
 	@RequestMapping(value = "/startEnv")

@@ -2,6 +2,13 @@
 Issues, TODOs
 -----------------------------------
 
+-on 26/3/2018, I have added a class APIResponse
+ -but I think I will still need some more work to incorporate the tic-tac-toe response to this APIResponse
+ -see 
+  -BaseController.makeAMove()
+  -Game.makeAMove()
+  -Util.toGson(Object, APIResponse) 
+
 -potds.jsp does not work
  access by http://localhost:8080/webmain/potds.jsp
  
