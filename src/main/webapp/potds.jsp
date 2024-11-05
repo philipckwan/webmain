@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.min.css">
-<script src="./bower_components/jquery/dist/jquery-3.1.0.min.js"></script>
+<script src="./bower_components/jquery/dist/jquery-3.4.0.min.js"></script>
 <script src="./bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
